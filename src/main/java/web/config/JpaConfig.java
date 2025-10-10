@@ -28,7 +28,7 @@ public class JpaConfig {
     @Bean
     public DataSource dataSource() {
         HikariDataSource ds = new HikariDataSource();
-        ds.setDriverClassName("com.mysql.cj.jdbc.Driver");
+        ds.setDriverClassName(env.getProperty("db.driver"));
         ds.setJdbcUrl(env.getProperty("db.url"));
         ds.setUsername(env.getProperty("db.username"));
         ds.setPassword(env.getProperty("db.password"));
