@@ -1,19 +1,73 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<head><meta charset="UTF-8"><title>User form</title></head>
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>User form</title>
+</head>
 <body>
 <h1 th:text="${user.id} == null ? 'Create user' : 'Edit user'">User form</h1>
 
-<form th:action="${user.id} == null ? @{/users} : @{/users/{id}(id=${user.id})}"
-      th:object="${user}" method="post">
+<form th:if="${user.id} == null"
+      th:action="@{/users}"
+      th:object="${user}"
+      method="post">
     <div>
         <label>First name:</label>
-        <input th:field="*{firstName}">
+        <input th:field="*{firstName}"
+               pattern="^[A-Za-zА-Яа-яЁё\- ]{2,64}$"
+               title="Только буквы, пробел и дефис, 2–64 символа"
+               required />
     </div>
+
     <div>
         <label>Last name:</label>
-        <input th:field="*{lastName}">
+        <input th:field="*{lastName}"
+               pattern="^[A-Za-zА-Яа-яЁё\- ]{2,64}$"
+               title="Только буквы, пробел и дефис, 2–64 символа"
+               required />
     </div>
+
+    <div>
+        <label>Email:</label>
+        <input th:field="*{email}"
+               type="email"
+               maxlength="255"
+               placeholder="name@example.com"
+               required />
+    </div>
+
+    <button type="submit">Save</button>
+</form>
+
+<form th:if="${user.id} != null"
+      th:action="@{/users/{id}(id=${user.id})}"
+      th:object="${user}"
+      method="post">
+    <div>
+        <label>First name:</label>
+        <input th:field="*{firstName}"
+               pattern="^[A-Za-zА-Яа-яЁё\- ]{2,64}$"
+               title="Только буквы, пробел и дефис, 2–64 символа"
+               required />
+    </div>
+
+    <div>
+        <label>Last name:</label>
+        <input th:field="*{lastName}"
+               pattern="^[A-Za-zА-Яа-яЁё\- ]{2,64}$"
+               title="Только буквы, пробел и дефис, 2–64 символа"
+               required />
+    </div>
+
+    <div>
+        <label>Email:</label>
+        <input th:field="*{email}"
+               type="email"
+               maxlength="255"
+               placeholder="name@example.com"
+               required />
+    </div>
+
     <button type="submit">Save</button>
 </form>
 

@@ -1,31 +1,42 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="ru" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8"/>
+    <meta charset="UTF-8" />
     <title>Users</title>
 </head>
 <body>
 <h1>Users</h1>
 
-<p><a th:href="@{/users/new}">New user</a></p>
+<p><a th:href="@{/new}">New user</a></p>
 
-<table border="1" cellpadding="6">
+<table border="1" cellpadding="6" cellspacing="0">
     <thead>
     <tr>
-        <th>ID</th><th>First name</th><th>Last name</th><th>Actions</th>
+        <th>ID</th>
+        <th>First name</th>
+        <th>Last name</th>
+        <th>Email</th>
+        <th>Actions</th>
     </tr>
     </thead>
     <tbody>
     <tr th:each="u : ${users}">
-        <td th:text="${u.id}"></td>
-        <td th:text="${u.firstName}"></td>
-        <td th:text="${u.lastName}"></td>
+        <td th:text="${u.id}">1</td>
+        <td th:text="${u.firstName}">John</td>
+        <td th:text="${u.lastName}">Doe</td>
+        <td th:text="${u.email}">john@example.com</td>
         <td>
-            <a th:href="@{/users/{id}/edit(id=${u.id})}">edit</a>
-            <form th:action="@{/users/{id}/delete(id=${u.id})}" method="post" style="display:inline">
+            <a th:href="@{/users/{id}(id=${u.id})}">edit</a>
+            <form th:action="@{/users/{id}(id=${u.id})}" method="post" style="display:inline">
+                <input type="hidden" name="_method" value="delete"/>
                 <button type="submit">delete</button>
             </form>
         </td>
+    </tr>
+
+    <!-- На случай пустого списка -->
+    <tr th:if="${#lists.isEmpty(users)}">
+        <td colspan="5">No users yet</td>
     </tr>
     </tbody>
 </table>
