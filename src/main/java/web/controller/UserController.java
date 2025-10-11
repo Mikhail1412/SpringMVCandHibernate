@@ -11,43 +11,53 @@ import web.service.UserService;
 public class UserController {
 
     private final UserService userService;
-    public UserController(UserService userService) { this.userService = userService; }
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
+    // список
     @GetMapping
     public String list(Model model) {
         model.addAttribute("users", userService.findAll());
         return "users"; // /WEB-INF/pages/users.html
     }
 
+    // редирект с корня приложения
     @GetMapping("/")
     public String root() {
         return "redirect:/users";
     }
 
+    // форма создания
     @GetMapping("/new")
     public String createForm(Model model) {
         model.addAttribute("user", new User());
         return "user-form";
     }
 
-    @PostMapping
-    public String create(@ModelAttribute User user) {
-        userService.save(user);
-        return "redirect:/users";
-    }
-
+    // форма редактирования
     @GetMapping("/{id}/edit")
     public String editForm(@PathVariable Long id, Model model) {
         model.addAttribute("user", userService.findById(id));
         return "user-form";
     }
 
-    @PostMapping("/{id}")
-    public String update(@ModelAttribute User user) {
-        userService.update(user);
+    // сохранить нового
+    @PostMapping
+    public String create(@ModelAttribute User user) {
+        userService.save(user);
         return "redirect:/users";
     }
 
+    // обновить существующего
+    @PostMapping("/{id}")
+    public String update(@PathVariable Long id, @ModelAttribute User user) {
+        user.setId(id);
+        userService.save(user); // или userService.update(user) — как у тебя реализовано
+        return "redirect:/users";
+    }
+
+    // удалить
     @PostMapping("/{id}/delete")
     public String delete(@PathVariable Long id) {
         userService.delete(id);
