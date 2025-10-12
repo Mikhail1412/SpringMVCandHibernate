@@ -24,7 +24,7 @@ public class JpaConfig {
         this.env = env;
     }
 
-    // Если DataSource уже сконфигурирован в другом классе — этот метод можно удалить
+    // if DataSource has configuration this one can be deleted
     @Bean
     public DataSource dataSource() {
         HikariDataSource ds = new HikariDataSource();

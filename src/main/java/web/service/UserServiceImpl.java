@@ -14,9 +14,28 @@ public class UserServiceImpl implements UserService {
     private final UserDao dao;
     public UserServiceImpl(UserDao dao) { this.dao = dao; }
 
-    @Override public List<User> findAll() { return dao.findAll(); }
-    @Override public User findById(Long id) { return dao.findById(id); }
-    @Override public void save(User user) { dao.save(user); }
-    @Override public void update(User user) { dao.update(user); }
-    @Override public void delete(Long id) { dao.delete(id); }
+    @Override
+    public List<User> findAll() {
+        return dao.findAll();
+    }
+
+    @Override
+    public User findById(Long id) {
+        return dao.findById(id);
+    }
+
+    @Override
+    public void save(User user) {
+        dao.save(user);
+    }
+
+    @Override
+    public void update(User user) {
+        dao.update(user);
+    }
+
+    @Override
+    public void delete(Long id) {
+        dao.delete(id);
+    }
 }
