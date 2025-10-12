@@ -1,76 +1,65 @@
-<!DOCTYPE html>
-<html lang="ru" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8" />
-    <title>User form</title>
-</head>
-<body>
-<h1 th:text="${user.id} == null ? 'Create user' : 'Edit user'">User form</h1>
-
+<!-- CREATE -->
 <form th:if="${user.id} == null"
       th:action="@{/users}"
       th:object="${user}"
       method="post">
+
     <div>
-        <label>First name:</label>
-        <input th:field="*{firstName}"
+        <label for="firstName">First name:</label>
+        <input id="firstName" th:field="*{firstName}"
+               required
                pattern="^[A-Za-zА-Яа-яЁё\- ]{2,64}$"
-               title="Только буквы, пробел и дефис, 2–64 символа"
-               required />
+               title="Только буквы, пробел и дефис, 2–64 символа" />
     </div>
 
     <div>
-        <label>Last name:</label>
-        <input th:field="*{lastName}"
+        <label for="lastName">Last name:</label>
+        <input id="lastName" th:field="*{lastName}"
+               required
                pattern="^[A-Za-zА-Яа-яЁё\- ]{2,64}$"
-               title="Только буквы, пробел и дефис, 2–64 символа"
-               required />
+               title="Только буквы, пробел и дефис, 2–64 символа" />
     </div>
 
     <div>
-        <label>Email:</label>
-        <input th:field="*{email}"
-               type="email"
-               maxlength="255"
-               placeholder="name@example.com"
-               required />
+        <label for="email">Email:</label>
+        <input id="email" th:field="*{email}"
+               type="email" required maxlength="255"
+               placeholder="name@example.com" />
     </div>
 
     <button type="submit">Save</button>
+    <a th:href="@{/users}">Cancel</a>
 </form>
 
+<!-- UPDATE -->
 <form th:if="${user.id} != null"
       th:action="@{/users/{id}(id=${user.id})}"
       th:object="${user}"
       method="post">
+
     <div>
-        <label>First name:</label>
-        <input th:field="*{firstName}"
+        <label for="firstName2">First name:</label>
+        <input id="firstName2" th:field="*{firstName}"
+               required
                pattern="^[A-Za-zА-Яа-яЁё\- ]{2,64}$"
-               title="Только буквы, пробел и дефис, 2–64 символа"
-               required />
+               title="Только буквы, пробел и дефис, 2–64 символа" />
     </div>
 
     <div>
-        <label>Last name:</label>
-        <input th:field="*{lastName}"
+        <label for="lastName2">Last name:</label>
+        <input id="lastName2" th:field="*{lastName}"
+               required
                pattern="^[A-Za-zА-Яа-яЁё\- ]{2,64}$"
-               title="Только буквы, пробел и дефис, 2–64 символа"
-               required />
+               title="Только буквы, пробел и дефис, 2–64 символа" />
     </div>
 
     <div>
-        <label>Email:</label>
-        <input th:field="*{email}"
-               type="email"
-               maxlength="255"
-               placeholder="name@example.com"
-               required />
+        <label for="email2">Email:</label>
+        <input id="email2" th:field="*{email}"
+               type="email" required maxlength="255"
+               placeholder="name@example.com" />
     </div>
 
     <button type="submit">Save</button>
+    <a th:href="@{/users}">Cancel</a>
 </form>
-
-<p><a th:href="@{/users}">Back</a></p>
-</body>
-</html>
